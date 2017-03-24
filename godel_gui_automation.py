@@ -1,7 +1,7 @@
 from ldtp import *
 from ldtputils import *
 import time
-import subprocess
+# import subprocess
 
 #Launch the application
 '''
@@ -19,18 +19,43 @@ time.sleep(20)
 '''
 
 # Admin gui automatation
+'''
 print('pressing `Scan and Find`')
 click('irb1200_blending.rviz* -RViz', 'Scan and Find')
-print('waiting 20 seconds')
-time.sleep(20)
+print('waiting 10 seconds')
+time.sleep(10)
 print('pressing `Select All`')
 click('irb1200_blending.rviz* -RViz', 'Select All')
 print('pressing `Generate Paths`')
 click('irb1200_blending.rviz* -RViz', 'Generate Paths')
-print('waiting 20 seconds')
-time.sleep(20)
-print('waiting 20 seconds')
-activatetext('irb1200_blending.rviz* -RViz', '1_edge_0')
+print('waiting 10 seconds')
+time.sleep(10)
+print('selecting edge')
+click('irb1200_blending.rviz* -RViz', '1_edge_0')
+'''
 
 # Simple gui
-# click('irb1200_blending.rviz* -RViz', 'Next' )
+while True:
+    print("Scanning")
+    click('irb1200_blending.rviz* -RViz', 'Next')
+    print('waiting 10 seconds')
+    time.sleep(10) #wait for robot scan
+
+    print("Skipping Select Surfaces")
+    click('irb1200_blending.rviz* -RViz', 'Next')
+    print("Select All Surfaces and request plans")
+    click('irb1200_blending.rviz* -RViz', 'Next')
+    print('waiting 30 seconds')
+    time.sleep(40) #wait for planning all surfaces
+
+    print("Simulating all plans")
+    click('irb1200_blending.rviz* -RViz', 'Next')
+    print('waiting 20 seconds')
+    time.sleep(40)#wait for simulation
+
+    print("Executing All plans")
+    click('irb1200_blending.rviz* -RViz', 'Next')
+    print('waiting 60 seconds')
+    time.sleep(40)#wait for simulation
+
+    click('irb1200_blending.rviz* -RViz', 'Reset')
